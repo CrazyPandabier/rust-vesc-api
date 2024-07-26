@@ -3,7 +3,11 @@ name = "vesc-api"
 version = "0.1.0"
 edition = "2021"
 description = "A Rust API for communicating with VESC motor controllers"
-license = "MIT"
+license = "MIT OR Apache-2.0"
+homepage = ""
+repository = "https://github.com/CrazyPandabier/rust-vesc-api"
+readme = "README.md"
+keywords = ["vesc", "motor", "controller"]
 
 [dependencies]
 serial = "0.4.0"
