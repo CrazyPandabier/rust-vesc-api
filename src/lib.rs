@@ -3,10 +3,11 @@ extern crate serial;
 use std::io::{Read, Write};
 
 use packet::get_packet;
-use serial::{prelude::*, Error, SystemPort};
+use serial::{prelude::*, SystemPort};
 
 pub use packet::PacketData;
 pub use serial::BaudRate;
+pub use serial::Error;
 
 mod packet;
 
