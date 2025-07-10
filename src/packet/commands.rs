@@ -7,6 +7,11 @@ pub struct SetDutyCycle {
     duty_cycle: i32,
 }
 
+pub struct SetRpm {
+    id: u8,
+    rpm: i32
+}
+
 pub struct Alive {
     id: u8,
 }
@@ -18,6 +23,12 @@ pub struct GetValues {
 impl SetDutyCycle {
     pub fn new(duty_cycle: i32) -> SetDutyCycle {
         SetDutyCycle { id: 5, duty_cycle }
+    }
+}
+
+impl SetRpm {
+    pub fn new(rpm: i32) -> SetRpm {
+        SetRpm { id: 8, rpm: rpm }
     }
 }
 
@@ -36,6 +47,13 @@ impl Default for GetValues {
 impl Command for SetDutyCycle {
     fn get_data(&self) -> Vec<u8> {
         let bytes = self.duty_cycle.to_be_bytes();
+        vec![self.id, bytes[0], bytes[1], bytes[2], bytes[3]]
+    }
+}
+
+impl Command for SetRpm {
+    fn get_data(&self) -> Vec<u8> {
+        let bytes = self.rpm.to_be_bytes();
         vec![self.id, bytes[0], bytes[1], bytes[2], bytes[3]]
     }
 }

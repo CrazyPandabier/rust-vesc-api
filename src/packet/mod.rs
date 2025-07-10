@@ -1,4 +1,5 @@
 use std::io::Error;
+use log::debug;
 
 const PACKET_MAX_LENGTH: usize = 512;
 const SMALL_PACKET_MAX_LENGTH: usize = 256;
@@ -106,7 +107,7 @@ fn extract_data(buffer: Vec<u8>) -> PacketData {
             };
 
             //print buffer
-            println!("{:?}", buffer);
+            debug!("{:?}", buffer);
 
             let mut index = 1;
             values.temp_mosfet = buffer::get_float16(&buffer, 10.0, &mut index);

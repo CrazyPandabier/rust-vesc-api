@@ -1,3 +1,5 @@
+use log::debug;
+
 pub fn get_int16(buffer: &[u8], index: &mut usize) -> i16 {
     let res = ((buffer[*index] as u16) << 8) | (buffer[*index + 1] as u16);
     *index += 2;
@@ -5,7 +7,7 @@ pub fn get_int16(buffer: &[u8], index: &mut usize) -> i16 {
 }
 
 pub fn get_int32(buffer: &[u8], index: &mut usize) -> i32 {
-    println!(
+    debug!(
         "buffer: {:?}, {:?},{:?}, {:?}",
         buffer[*index],
         buffer[*index + 1],
