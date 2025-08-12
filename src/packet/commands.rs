@@ -9,7 +9,12 @@ pub struct SetDutyCycle {
 
 pub struct SetRpm {
     id: u8,
-    rpm: i32
+    rpm: i32,
+}
+
+pub struct SetCurrent {
+    id: u8,
+    current: i32,
 }
 
 pub struct Alive {
@@ -29,6 +34,15 @@ impl SetDutyCycle {
 impl SetRpm {
     pub fn new(rpm: i32) -> SetRpm {
         SetRpm { id: 8, rpm: rpm }
+    }
+}
+
+impl SetCurrent {
+    pub fn new(current: i32) -> Self {
+        SetCurrent {
+            id: 6,
+            current: current,
+        }
     }
 }
 
@@ -54,6 +68,13 @@ impl Command for SetDutyCycle {
 impl Command for SetRpm {
     fn get_data(&self) -> Vec<u8> {
         let bytes = self.rpm.to_be_bytes();
+        vec![self.id, bytes[0], bytes[1], bytes[2], bytes[3]]
+    }
+}
+
+impl Command for SetCurrent {
+    fn get_data(&self) -> Vec<u8> {
+        let bytes = self.current.to_be_bytes();
         vec![self.id, bytes[0], bytes[1], bytes[2], bytes[3]]
     }
 }
