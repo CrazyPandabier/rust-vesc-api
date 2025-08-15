@@ -1,5 +1,5 @@
-use std::io::Error;
 use log::debug;
+use std::io::Error;
 
 const PACKET_MAX_LENGTH: usize = 512;
 const SMALL_PACKET_MAX_LENGTH: usize = 256;
@@ -62,7 +62,7 @@ pub fn process_packet(buffer: Vec<u8>) -> Result<PacketData, Error> {
         }
     }
 
-    if payload_length == 0 {
+    if payload_length == 0 || buffer.len() < (payload_index + payload_length) {
         return Err(Error::new(std::io::ErrorKind::Other, "Invalid packet"));
     }
 

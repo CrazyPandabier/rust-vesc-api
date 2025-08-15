@@ -16,6 +16,10 @@ pub struct SetCurrent {
     id: u8,
     current: i32,
 }
+pub struct SetCurrentBrake {
+    id: u8,
+    current: i32,
+}
 
 pub struct Alive {
     id: u8,
@@ -41,6 +45,15 @@ impl SetCurrent {
     pub fn new(current: i32) -> Self {
         SetCurrent {
             id: 6,
+            current: current,
+        }
+    }
+}
+
+impl SetCurrentBrake {
+    pub fn new(current: i32) -> Self {
+        SetCurrentBrake {
+            id: 7,
             current: current,
         }
     }
@@ -73,6 +86,13 @@ impl Command for SetRpm {
 }
 
 impl Command for SetCurrent {
+    fn get_data(&self) -> Vec<u8> {
+        let bytes = self.current.to_be_bytes();
+        vec![self.id, bytes[0], bytes[1], bytes[2], bytes[3]]
+    }
+}
+
+impl Command for SetCurrentBrake {
     fn get_data(&self) -> Vec<u8> {
         let bytes = self.current.to_be_bytes();
         vec![self.id, bytes[0], bytes[1], bytes[2], bytes[3]]

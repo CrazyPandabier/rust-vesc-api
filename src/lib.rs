@@ -54,8 +54,8 @@ impl Vesc {
     pub fn get_values(&mut self) -> Result<PacketData, Error> {
         let command = packet::commands::GetValues::default();
         let packet = get_packet(command);
-        self.port.write_all(&packet).unwrap();
-        std::thread::sleep(std::time::Duration::from_micros(2000));
+        self.port.write_all(&packet)?;
+        std::thread::sleep(std::time::Duration::from_micros(10000));
         self.receive_packet()
     }
 
@@ -75,6 +75,13 @@ impl Vesc {
 
     pub fn set_current(&mut self, current: f32) -> Result<(), Error> {
         let command = packet::commands::SetCurrent::new((current * 1000.0) as i32);
+        let packet = get_packet(command);
+        self.port.write_all(&packet)?;
+        Ok(())
+    }
+
+    pub fn set_current_brake(&mut self, current: f32) -> Result<(), Error> {
+        let command = packet::commands::SetCurrentBrake::new((current * 1000.0) as i32);
         let packet = get_packet(command);
         self.port.write_all(&packet)?;
         Ok(())
