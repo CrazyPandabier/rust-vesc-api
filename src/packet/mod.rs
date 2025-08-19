@@ -1,3 +1,4 @@
+use log::debug;
 use std::io::Error;
 
 const PACKET_MAX_LENGTH: usize = 512;
@@ -61,7 +62,7 @@ pub fn process_packet(buffer: Vec<u8>) -> Result<PacketData, Error> {
         }
     }
 
-    if payload_length == 0 {
+    if payload_length == 0 || buffer.len() < (payload_index + payload_length) {
         return Err(Error::new(std::io::ErrorKind::Other, "Invalid packet"));
     }
 
@@ -106,7 +107,7 @@ fn extract_data(buffer: Vec<u8>) -> PacketData {
             };
 
             //print buffer
-            println!("{:?}", buffer);
+            debug!("{:?}", buffer);
 
             let mut index = 1;
             values.temp_mosfet = buffer::get_float16(&buffer, 10.0, &mut index);

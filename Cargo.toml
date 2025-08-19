@@ -9,4 +9,5 @@ readme = "README.md"
 keywords = ["vesc", "motor", "controller"]
 
 [dependencies]
+log = "0.4.27"
 serial = "0.4.0"
